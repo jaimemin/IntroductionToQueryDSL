@@ -12,6 +12,7 @@ import com.tistory.jaimemin.querydsl.entity.QMember;
 import com.tistory.jaimemin.querydsl.entity.QTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -23,12 +24,14 @@ import static com.tistory.jaimemin.querydsl.entity.QTeam.*;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberJpaRepository {
 
     private final EntityManager entityManager;
 
     private final JPAQueryFactory queryFactory;
 
+    @Transactional
     public void save(Member member) {
         entityManager.persist(member);
     }
